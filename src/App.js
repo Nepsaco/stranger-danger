@@ -75,10 +75,10 @@ class App extends React.Component{
                     ? <button onClick={this.handleStartClick}>Start</button>
                     : null}
                 {this.state.activeComponent === 'ScenarioCard' && !this.state.activeCard && this.state.currentPoints < 10
-                    ?  <> 
+                    ?  <div className="scenario-card-container"> 
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.good} />
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.bad}/>
-                    </>
+                    </div>
                     : null 
                 }
                 {this.state.activeCard && this.state.currentPoints < 10
