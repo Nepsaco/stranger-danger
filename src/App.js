@@ -95,7 +95,7 @@ class App extends React.Component{
                     </div>
                     : null 
                 }
-                {this.state.activeCard && (this.state.currentPoints < 20 || this.state.currentPoints > -20)
+                {this.state.activeCard && this.state.currentPoints < 20 && this.state.currentPoints > -20
                     ? <> <ScenarioCard activeCard={true} scenario={this.state.activeCard}/> 
                         <button onClick={this.resetActiveCard} >Continue Game</button>
                     </>

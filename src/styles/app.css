@@ -57,12 +57,6 @@ header {
     padding: 5em;
 }
 
-h1 {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 100px;
-    color: red;
-    
-}
 
 button {
     background-color: black;
@@ -108,4 +102,15 @@ p {
     display: flex;
     justify-content: center;
     padding: 20px;
+}
+
+.winlose-card {
+    display: flex;
+    flex-direction: column;
+
+    
+}
+
+.winlose-card > img {
+    align-self: center;
 }
