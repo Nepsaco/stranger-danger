@@ -67,28 +67,44 @@ class App extends React.Component{
         })
     }
 
+    resetGame = event => {
+        this.setState({
+            currentPoints: 0,
+            activeComponent: 'Start',
+            scenarios: [],
+            good: null,
+            bad: null,
+            activeCard: null
+        })
+        this.componentDidMount()
+    }
+
     render(){
         return (
             <div className="App">
                 <Header points={this.state.currentPoints}/>
                 {this.state.activeComponent === 'Start'
-                    ? <button onClick={this.handleStartClick}>Start</button>
+                    ?<> 
+                    <p>Learn Street Smarts! Which path is smarter? Pick the picture that appeals to you.</p>
+                    <button onClick={this.handleStartClick}>Start</button> </>
                     : null}
-                {this.state.activeComponent === 'ScenarioCard' && !this.state.activeCard && this.state.currentPoints < 10
+                {this.state.activeComponent === 'ScenarioCard' && !this.state.activeCard && this.state.currentPoints < 20 
                     ?  <> 
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.good} />
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.bad}/>
                     </>
                     : null 
                 }
-                {this.state.activeCard && this.state.currentPoints < 10
+                {this.state.activeCard && (this.state.currentPoints < 20 || this.state.currentPoints > -20)
                     ? <> <ScenarioCard activeCard={true} scenario={this.state.activeCard}/> 
                         <button onClick={this.resetActiveCard} >Continue Game</button>
                     </>
                     : null
                 } 
-                {this.state.currentPoints >= 10
-                    ? <WinLoseCard currentPoints={this.state.currentPoints}/>
+                {this.state.currentPoints >= 20 || this.state.currentPoints <= -20
+                    ? <> <WinLoseCard currentPoints={this.state.currentPoints}/> 
+                        <button onClick={this.resetGame}> Play Again </button>
+                    </>
                     : null
                 }
             </div>
