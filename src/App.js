@@ -88,11 +88,11 @@ class App extends React.Component{
                     <p>Learn Street Smarts! Which path is smarter? Pick the picture that appeals to you.</p>
                     <button onClick={this.handleStartClick}>Start</button> </>
                     : null}
-                {this.state.activeComponent === 'ScenarioCard' && !this.state.activeCard && this.state.currentPoints < 20 
-                    ?  <> 
+                {this.state.activeComponent === 'ScenarioCard' && !this.state.activeCard && this.state.currentPoints < 20
+                    ?  <div className="scenario-card-container"> 
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.good} />
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.bad}/>
-                    </>
+                    </div>
                     : null 
                 }
                 {this.state.activeCard && (this.state.currentPoints < 20 || this.state.currentPoints > -20)
