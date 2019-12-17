@@ -9,6 +9,7 @@ export default class ScenarioCard extends Component {
     render(){
         return(
             <div>
+                <p>Scenarios</p>
             </div>
         )
     }
