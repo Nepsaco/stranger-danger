@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header'
+import ScenarioCard from './components/ScenarioCard'
+import './styles/app.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+    state ={
+        currentPoints: 0,
+        activeComponent: '',
+        scenarios: []
+    }
+
+    componentDidMount(){
+    }
+
+    handleClick(){
+
+    }
+
+    render(){
+        return (
+            <div className="App">
+                <Header points={this.state.currentPoints}/>
+                <button onClick={}>Start</button>
+            </div>
+        );
+    }
 }
 
 export default App;
