@@ -19,6 +19,7 @@ export default class ScenarioCard extends Component {
                 {this.props.activeCard
                     ? <div>
                         <p>{this.props.scenario.result}</p>
+                        <img src={this.props.scenario.resultImage} alt="result" />
                     </div>
                     : <img src={this.props.scenario.image} alt='picture' onClick={this.handleImageClick} />
                 }

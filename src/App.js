@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header'
 import ScenarioCard from './components/ScenarioCard'
 import './styles/app.css'
+import WinLoseCard from './components/WinLoseCard';
 const BASE_URL = 'http://localhost:3000'
 
 
@@ -52,9 +53,18 @@ class App extends React.Component{
 
     handleActiveCard = scenarioCard => {
         this.setState({
-            activeCard: scenarioCard
+            activeCard: scenarioCard,
+            currentPoints: scenarioCard.points += this.state.currentPoints
         })
 
+    }
+    
+    resetActiveCard = event => {
+        this.getGoodScenario(this.state.scenarios[0])
+        this.getBadScenario(this.state.scenarios[1])
+        this.setState({
+            activeCard: null
+        })
     }
 
     render(){
@@ -64,16 +74,23 @@ class App extends React.Component{
                 {this.state.activeComponent === 'Start'
                     ? <button onClick={this.handleStartClick}>Start</button>
                     : null}
-                {this.state.activeComponent === 'ScenarioCard' && !this.state.activeCard
+                {this.state.activeComponent === 'ScenarioCard' && !this.state.activeCard && this.state.currentPoints < 10
                     ?  <> 
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.good} />
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.bad}/>
                     </>
                     : null 
                 }
-                {this.state.activeCard
-                    ?  <ScenarioCard activeCard={true} scenario={this.state.activeCard}/>
-                    : null} 
+                {this.state.activeCard && this.state.currentPoints < 10
+                    ? <> <ScenarioCard activeCard={true} scenario={this.state.activeCard}/> 
+                        <button onClick={this.resetActiveCard} >Continue Game</button>
+                    </>
+                    : null
+                } 
+                {this.state.currentPoints >= 10
+                    ? <WinLoseCard currentPoints={this.state.currentPoints}/>
+                    : null
+                }
             </div>
         );
     }
