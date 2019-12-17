@@ -9,7 +9,10 @@ class App extends React.Component{
     state ={
         currentPoints: 0,
         activeComponent: 'Start',
-        scenarios: []
+        scenarios: [],
+        good: null,
+        bad: null,
+        activeCard: null
     }
 
     componentDidMount(){
@@ -24,11 +27,34 @@ class App extends React.Component{
             });
     }
 
-    handleStartClick = (event) => {
+    getGoodScenario = array => {
+        const randomIndex =  Math.floor(Math.random() * array.length)
+        this.setState({
+            good: array[randomIndex]
+        })
+    }
+
+    getBadScenario = array => {
+        const randomIndex =  Math.floor(Math.random() * array.length)
+        this.setState({
+            bad: array[randomIndex]
+        })
+    }
+
+    handleStartClick = event => {
+        this.getGoodScenario(this.state.scenarios[0])
+        this.getBadScenario(this.state.scenarios[1])
 
         this.setState({
             activeComponent: 'ScenarioCard'
         })
+    }
+
+    handleActiveCard = scenarioCard => {
+        this.setState({
+            activeCard: scenarioCard
+        })
+
     }
 
     render(){
@@ -38,12 +64,16 @@ class App extends React.Component{
                 {this.state.activeComponent === 'Start'
                     ? <button onClick={this.handleStartClick}>Start</button>
                     : null}
-                {this.state.activeComponent === 'ScenarioCard' 
+                {this.state.activeComponent === 'ScenarioCard' && !this.state.activeCard
                     ?  <> 
-                        <ScenarioCard />
-                        <ScenarioCard />
+                        <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.good} />
+                        <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.bad}/>
                     </>
-                    : null}
+                    : null 
+                }
+                {this.state.activeCard
+                    ?  <ScenarioCard activeCard={true} scenario={this.state.activeCard}/>
+                    : null} 
             </div>
         );
     }

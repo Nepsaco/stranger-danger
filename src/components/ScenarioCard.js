@@ -3,13 +3,25 @@ import WinLoseCard from './WinLoseCard'
 
 export default class ScenarioCard extends Component {
     state={
+        front: true
+    }
 
+    handleImageClick = event =>{
+        this.props.handleActiveCard( this.props.scenario )
+        this.setState({
+            front: false
+        })
     }
 
     render(){
         return(
-            <div>
-                <p>Scenarios</p>
+            <div className='scenarioCard'>
+                {this.props.activeCard
+                    ? <div>
+                        <p>{this.props.scenario.result}</p>
+                    </div>
+                    : <img src={this.props.scenario.image} alt='picture' onClick={this.handleImageClick} />
+                }
             </div>
         )
     }
