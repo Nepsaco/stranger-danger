@@ -17,15 +17,14 @@ class App extends React.Component{
     }
 
     componentDidMount(){
-        Promise.all([fetch(`${BASE_URL}/good_choices`), fetch(`${BASE_URL}/bad_choices`)])
-            .then(([res1, res2]) => {
-                return Promise.all([res1.json(), res2.json()])
+        Promise.all([
+            fetch(`${BASE_URL}/good_choices`).then(response.json()),
+            fetch(`${BASE_URL}/bad_choices`).then(response.json())
+        ]).then(([res1, res2]) => {
+            this.setState({
+                scenarios: [res1, res2]
             })
-            .then(([res1, res2]) => {
-                this.setState({
-                    scenarios: [res1, res2]
-                })
-            });
+        });
     }
 
     getGoodScenario = array => {
@@ -92,17 +91,19 @@ class App extends React.Component{
                     ?  <div className="scenario-card-container"> 
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.good} />
                         <ScenarioCard handleActiveCard={this.handleActiveCard} scenario={this.state.bad}/>
-                    </div>
+                        </div>
                     : null 
                 }
                 {this.state.activeCard && this.state.currentPoints < 20 && this.state.currentPoints > -20
-                    ? <> <ScenarioCard activeCard={true} scenario={this.state.activeCard}/> 
+                    ? <> 
+                        <ScenarioCard activeCard={true} scenario={this.state.activeCard}/> 
                         <button onClick={this.resetActiveCard} >Continue Game</button>
                     </>
                     : null
                 } 
                 {this.state.currentPoints >= 20 || this.state.currentPoints <= -20
-                    ? <> <WinLoseCard currentPoints={this.state.currentPoints}/> 
+                    ? <> 
+                        <WinLoseCard currentPoints={this.state.currentPoints}/> 
                         <button onClick={this.resetGame}> Play Again </button>
                     </>
                     : null
